@@ -8,33 +8,32 @@ namespace Pupil {
 
 	// Blurs outline shaders at variable rate based on headset movement.
 	// */
-	public class PupilImageBlur {
-		private static Renderer _renderer;
-		private static GameObject _obj;
-		private static Camera _camera;
+	public static class PupilImageBlur {
+		public static Renderer renderer;
+		public static GameObject camera;
 		private static int _frames;
 		private static Vector3 _lastAngles;
 
-		public PupilImageBlur() {
-			_camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-		}
 
-
-		public static void SetEdgeShader (GameObject obj) {
-			var rend = obj.GetComponent<Renderer>();
-			rend.material.shader = Shader.Find("Custom/BlurEdges");
-			_renderer = rend;
-			_obj = obj;
+		public static void SetEdgeShader () {
+			if (renderer == null) {
+				Debug.LogError("Error: Renderer has not been set. Cannot set Edge Shader.");	
+			} else {
+				renderer.material.shader = Shader.Find("Custom/BlurEdges");
+			}
 		}
 
 		//Every 10 frames, calculate the percentage movement between two rotation vectors
-		//TODO: Static fields are uninitialized?! 
 		public static void AutoBlur() {
-			_renderer.material.SetFloat("_Blur", _lastAngles.y / _camera.transform.localEulerAngles.y);	
-			Debug.Log(_renderer.material.GetFloat("_Blur"));		
-			if (_frames >= 10) {
-				_lastAngles = _camera.transform.localEulerAngles;
-				_frames = 0;
+			if (camera == null) {
+				Debug.LogError("Error: Camera has not been set. Cannot execute blur.\nHint: try 'PupilImageBlur.camera = GameObject.FindGameObjectWithTag('MainCamera');");	
+			} else {
+				if (camera.transform.localEulerAngles.y != 0f) 
+					renderer.material.SetFloat("_Blur", _lastAngles.y / camera.transform.localEulerAngles.y);			
+				if (_frames >= 10) {
+					_lastAngles = camera.transform.localEulerAngles;
+					_frames = 0;
+				}
 			}
 		}
 	}
