@@ -12,7 +12,6 @@ namespace Pupil {
 		//Difference between IPD at variable lengths 		
 		private float _ipd;
 		private Transform _camera;
-		private Camera[] _children;
 		private float _minDistance;
 		private float _maxDistance;
 		private float _minDistanceIPD;
@@ -30,8 +29,6 @@ namespace Pupil {
 			if (_camera == null) {
 				Debug.LogError("Error: Camera not set. Please ensure that the PupilCameraRig is in the hierarchy and that there is only on camera with the MainCamera tag in the scene.");
 			}
-
-			_children = _camera.GetComponentsInChildren<Camera>();
 		}
 		
 		public void ChangeIpd(float update) {
@@ -67,8 +64,8 @@ namespace Pupil {
 
 		//TODO: Lines do not follow rotation vectors
 		public void DrawViewLines() {
-			Debug.DrawLine(_children[0].transform.localPosition, Vector3.forward, Color.red);
-			Debug.DrawLine(_children[1].transform.localPosition, Vector3.forward, Color.green);
+			Debug.DrawLine(_camera.GetChild(0).transform.localPosition, Vector3.forward, Color.red);
+			Debug.DrawLine(_camera.GetChild(1).transform.localPosition, Vector3.forward, Color.green);
 		}
 
 		public void AutoAdjustIPD() {
@@ -80,20 +77,22 @@ namespace Pupil {
 			var nearest = FindNearest();
 			//Default to max distance IPD
 			_ipd = _maxDistanceIPD;
-			var distance = GetDistanceToGameObject(nearest);
-			if (distance >= _minDistance) {
-				_ipd = _minDistanceIPD;
+			if (nearest != _camera.gameObject) {
+				var distance = GetDistanceToGameObject(nearest);
+				if (distance >= _minDistance) {
+					_ipd = _minDistanceIPD;
+				}
 			}
 
 			//Left
-			_children[0].transform.localRotation = Quaternion.Euler(_children[0].transform.localPosition.x, 
+			_camera.GetChild(0).transform.localRotation = Quaternion.Euler(_camera.GetChild(0).transform.localPosition.x, 
 																	_ipd,
-																	_children[0].transform.localPosition.z);
+																	_camera.GetChild(0).transform.localPosition.z);
 			
 			//Right
-			_children[1].transform.localRotation = Quaternion.Euler(_children[0].transform.localPosition.x, 
+			_camera.GetChild(1).transform.localRotation = Quaternion.Euler(_camera.GetChild(1).transform.localPosition.x, 
 																	_ipd, 
-																	_children[0].transform.localPosition.z);
+																	_camera.GetChild(1).transform.localPosition.z);
 		}
 	}
 
