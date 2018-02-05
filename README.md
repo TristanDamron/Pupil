@@ -1,5 +1,5 @@
 # Pupil 
-Unity assets for low-impact image optimizations for low-powered VR hardware. 
+Unity assets for low-impact image optimizations on low-powered VR hardware. 
 
 # Getting Started
 ## PupilCamera.cs
