@@ -56,7 +56,7 @@ namespace Pupil {
 
 		private GameObject FindNearest() {
 			RaycastHit hit;
-			if (Physics.SphereCast(_camera.localPosition, 10f, Vector3.forward, out hit, _maxDistance)) {
+			if (Physics.Raycast(_camera.position, _camera.forward, out hit, _maxDistance)) {
 				return hit.transform.gameObject;
 			}
 			return _camera.gameObject;
