@@ -62,10 +62,9 @@ namespace Pupil {
 			return _camera.gameObject;
 		}
 
-		//TODO: Lines do not follow rotation vectors
 		public void DrawViewLines() {
-			Debug.DrawLine(_camera.GetChild(0).transform.localPosition, Vector3.forward, Color.red);
-			Debug.DrawLine(_camera.GetChild(1).transform.localPosition, Vector3.forward, Color.green);
+			Debug.DrawLine(_camera.GetChild(0).transform.forward * _maxDistance, _camera.GetChild(0).forward, Color.red);
+			Debug.DrawLine(_camera.GetChild(1).transform.forward * _maxDistance, _camera.GetChild(1).forward, Color.green);
 		}
 
 		public void AutoAdjustIPD() {
