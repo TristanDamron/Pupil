@@ -87,11 +87,20 @@ namespace Pupil {
 			_camera.GetChild(0).transform.localRotation = Quaternion.Euler(_camera.GetChild(0).transform.localPosition.x, 
 																	_ipd,
 																	_camera.GetChild(0).transform.localPosition.z);
-			
+
+			_camera.GetChild(0).transform.localPosition = new Vector3(_ipd, 
+																	_camera.GetChild(0).transform.localPosition.y,
+																	_camera.GetChild(0).transform.localPosition.z);
+
 			//Right
 			_camera.GetChild(1).transform.localRotation = Quaternion.Euler(_camera.GetChild(1).transform.localPosition.x, 
-																	_ipd, 
+																	-_ipd, 
 																	_camera.GetChild(1).transform.localPosition.z);
+			
+			_camera.GetChild(1).transform.localPosition = new Vector3(-_ipd, 
+																	_camera.GetChild(1).transform.localPosition.y,
+																	_camera.GetChild(1).transform.localPosition.z);
+			
 		}
 	}
 
