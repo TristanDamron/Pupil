@@ -19,6 +19,8 @@ public class Blur : MonoBehaviour {
 	void Start () {
 		PupilImageBlur.renderer = GetComponent<Renderer>();
 		PupilImageBlur.camera = GameObject.FindGameObjectWithTag("MainCamera");
+		//Refresh rate in frames. Defaults to 10 frames if not set.
+		PupilImageBlur.refresh = 20;
 		//Only do this if the BlurEdges shader is not already attached to the object's material.
 		PupilImageBlur.SetEdgeShader(); 
 	}

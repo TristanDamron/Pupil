@@ -11,9 +11,9 @@ namespace Pupil {
 	public static class PupilImageBlur {
 		public static Renderer renderer;
 		public static GameObject camera;
+		public static int refresh;
 		private static int _frames;
 		private static Vector3 _lastAngles;
-
 
 		public static void SetEdgeShader () {
 			if (renderer == null) {
@@ -23,16 +23,19 @@ namespace Pupil {
 			}
 		}
 
-		//Every 10 frames, calculate the percentage movement between two rotation vectors
 		public static void AutoBlur() {
 			if (camera == null) {
 				Debug.LogError("Error: Camera has not been set. Cannot execute blur.\nHint: try 'PupilImageBlur.camera = GameObject.FindGameObjectWithTag('MainCamera');");	
-			} else {			
+			} else {	
+				if (refresh == 0) {
+					Debug.LogWarning("Refresh rate not set, defaulting to 10 frames");
+					refresh = 10;
+				}
 				_frames++;
 				//Not interested in the camera parent's location, but the location of its children.
 				if (_lastAngles.y != 0f) 
 					renderer.material.SetFloat("_Blur", camera.transform.GetChild(0).transform.localEulerAngles.y / _lastAngles.y);
-				if (_frames >= 10) {
+				if (_frames >= refresh) {
 					_lastAngles = camera.transform.GetChild(0).localEulerAngles;
 					_frames = 0;
 				}
