@@ -19,6 +19,7 @@ public class Blur : MonoBehaviour {
 	void Start () {
 		PupilImageBlur.renderer = GetComponent<Renderer>();
 		PupilImageBlur.camera = GameObject.FindGameObjectWithTag("MainCamera");
+		//Only do this if the BlurEdges shader is not already attached to the object's material.
 		PupilImageBlur.SetEdgeShader(); 
 	}
 	void Update () {

@@ -29,10 +29,11 @@ namespace Pupil {
 				Debug.LogError("Error: Camera has not been set. Cannot execute blur.\nHint: try 'PupilImageBlur.camera = GameObject.FindGameObjectWithTag('MainCamera');");	
 			} else {			
 				_frames++;
-				if (camera.transform.localEulerAngles.y != 0f) 
-						renderer.material.SetFloat("_Blur", _lastAngles.y / camera.transform.localEulerAngles.y);
+				//Not interested in the camera parent's location, but the location of its children.
+				if (_lastAngles.y != 0f) 
+					renderer.material.SetFloat("_Blur", camera.transform.GetChild(0).transform.localEulerAngles.y / _lastAngles.y);
 				if (_frames >= 10) {
-					_lastAngles = camera.transform.localEulerAngles;
+					_lastAngles = camera.transform.GetChild(0).localEulerAngles;
 					_frames = 0;
 				}
 			}
