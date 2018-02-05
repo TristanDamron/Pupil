@@ -33,3 +33,6 @@ VR camera rig that supports dynamic IPD adjustments.
 
 ## Prefabs/PupilInitializer.prefab
 Loads the VR device for Unity
+
+## Prefabs/PupilCameraSettings.prefab
+Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraRig prefab to be in the scene*
