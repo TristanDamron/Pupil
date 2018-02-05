@@ -4,7 +4,7 @@ Unity assets for low-impact image optimizations for low-powered VR hardware.
 # Getting Started
 ## PupilCamera.cs
 Dynamically adjusts the camera to account for variable inter-pupillary distance (IPD) based on how far away an object is from the player.
-Simply place the Prefabs/StereoScaling prefab into the hierarchy to trigger adjustments.
+Simply place the Prefabs/PupilCameraSettings prefab into the hierarchy to set adjustment variables and trigger adjustments.
 
 
 ## PupilImageBlur.cs
