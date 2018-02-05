@@ -27,9 +27,10 @@ namespace Pupil {
 		public static void AutoBlur() {
 			if (camera == null) {
 				Debug.LogError("Error: Camera has not been set. Cannot execute blur.\nHint: try 'PupilImageBlur.camera = GameObject.FindGameObjectWithTag('MainCamera');");	
-			} else {
+			} else {			
+				_frames++;
 				if (camera.transform.localEulerAngles.y != 0f) 
-					renderer.material.SetFloat("_Blur", _lastAngles.y / camera.transform.localEulerAngles.y);			
+						renderer.material.SetFloat("_Blur", _lastAngles.y / camera.transform.localEulerAngles.y);
 				if (_frames >= 10) {
 					_lastAngles = camera.transform.localEulerAngles;
 					_frames = 0;
