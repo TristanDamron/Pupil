@@ -11,7 +11,7 @@ Simply place the Prefabs/PupilCameraSettings prefab into the hierarchy to set ad
 Using the PupilImageBlur class, materials using the Shaders/BlurEdges shader will have the blur effect occur at a variable rate depending on the movement of the HMD.
 
 *Example Script: Blur.cs*
-```
+```csharp
 using UnityEngine;
 using Pupil;
 
