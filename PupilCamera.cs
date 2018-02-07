@@ -7,7 +7,7 @@ namespace Pupil {
 	/*
 	PupilCamera
 
-	Functionality for adjusting the Unity camera settings to account for dynamically changing IPD.
+	Functionality for adjusting the Unity camera settings to account for dynamically changing IPD and depth of field.
 	*/
 	public class PupilCamera {
 		//Difference between IPD at variable lengths 		
@@ -122,22 +122,22 @@ namespace Pupil {
 			}
 
 			//Left
-			_camera.GetChild(0).transform.localRotation = Quaternion.Euler(_camera.GetChild(0).transform.localPosition.x, 
-																	_ipd,
-																	_camera.GetChild(0).transform.localPosition.z);
+			Quaternion leftSlerp = Quaternion.Euler(_camera.GetChild(0).transform.localPosition.x, 
+													_ipd,
+													_camera.GetChild(0).transform.localPosition.z);
 
-			_camera.GetChild(0).transform.localPosition = Vector3.Lerp(_camera.GetChild(0).transform.localPosition, new Vector3(_ipd, 
-																	_camera.GetChild(0).transform.localPosition.y,
-																	_camera.GetChild(0).transform.localPosition.z), Time.deltaTime);
+			_camera.GetChild(0).transform.localRotation = Quaternion.Slerp(_camera.GetChild(0).transform.localRotation, leftSlerp, Time.deltaTime);
+			_camera.GetChild(0).transform.localPosition = Vector3.Lerp(_camera.GetChild(0).transform.localPosition, 
+																		new Vector3(_ipd, _camera.GetChild(0).transform.localPosition.y, _camera.GetChild(0).transform.localPosition.z), Time.deltaTime);
 
 			//Right
-			_camera.GetChild(1).transform.localRotation = Quaternion.Euler(_camera.GetChild(1).transform.localPosition.x, 
-																	-_ipd, 
-																	_camera.GetChild(1).transform.localPosition.z);
+			Quaternion rightSlerp = Quaternion.Euler(_camera.GetChild(1).transform.localPosition.x, 
+													-_ipd, 
+													_camera.GetChild(1).transform.localPosition.z);
 
-			_camera.GetChild(1).transform.localPosition = Vector3.Lerp(_camera.GetChild(1).transform.localPosition, new Vector3(-_ipd, 
-																	_camera.GetChild(1).transform.localPosition.y,
-																	_camera.GetChild(1).transform.localPosition.z), Time.deltaTime);			
+			_camera.GetChild(1).transform.localRotation = Quaternion.Slerp(_camera.GetChild(1).transform.localRotation, rightSlerp, Time.deltaTime); 
+			_camera.GetChild(1).transform.localPosition = Vector3.Lerp(_camera.GetChild(1).transform.localPosition, 
+																		new Vector3(-_ipd, _camera.GetChild(1).transform.localPosition.y, _camera.GetChild(1).transform.localPosition.z), Time.deltaTime);			
 			
 		}
 	}
