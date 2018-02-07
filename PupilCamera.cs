@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 namespace Pupil {
 	/*
 	PupilCamera
 
 	Functionality for adjusting the Unity camera settings to account for dynamically changing IPD.
-	*/ 
+	*/
 	public class PupilCamera {
 		//Difference between IPD at variable lengths 		
 		private float _ipd;
@@ -17,6 +18,8 @@ namespace Pupil {
 		private float _minDistanceIPD;
 		private float _maxDistanceIPD;	
 		private bool _autoAdjustWarnings;	
+		private PostProcessingBehaviour _behaviourLeft;
+		private PostProcessingBehaviour _behaviourRight;
 
 		
 		public PupilCamera() {
@@ -28,6 +31,18 @@ namespace Pupil {
 
 			if (_camera == null) {
 				Debug.LogError("Error: Camera not set. Please ensure that the PupilCameraRig is in the hierarchy and that there is only on camera with the MainCamera tag in the scene.");
+			} 
+
+			_behaviourLeft = _camera.GetComponentsInChildren<PostProcessingBehaviour>()[0];
+
+			if (_behaviourLeft == null) {
+				Debug.LogError("Error: No post processing behaviour found on the left camera.");			
+			}
+		
+			_behaviourRight = _camera.GetComponentsInChildren<PostProcessingBehaviour>()[1];
+
+			if (_behaviourRight == null) {
+				Debug.LogError("Error: No post processing behaviour found on the right camera.");			
 			}
 		}
 		
@@ -56,15 +71,38 @@ namespace Pupil {
 
 		private GameObject FindNearest() {
 			RaycastHit hit;
-			if (Physics.Raycast(_camera.position, _camera.forward, out hit, _maxDistance)) {
+			if (Physics.Raycast(_camera.position, _camera.forward, out hit)) {
 				return hit.transform.gameObject;
 			}
+
 			return _camera.gameObject;
 		}
 
 		public void DrawViewLines() {
 			Debug.DrawLine(_camera.GetChild(0).transform.forward * _maxDistance, _camera.GetChild(0).forward, Color.red);
 			Debug.DrawLine(_camera.GetChild(1).transform.forward * _maxDistance, _camera.GetChild(1).forward, Color.green);
+		}
+
+		public void AutoAdjustDepthOfField() {
+			var nearest = FindNearest();
+			var distance = GetDistanceToGameObject(nearest);
+			var leftSettings = _behaviourLeft.profile.depthOfField.settings;
+			var rightSettings = _behaviourRight.profile.depthOfField.settings;
+
+			var lerp = 0f;
+			if (nearest != _camera.gameObject || distance <= _maxDistanceIPD) {
+				lerp = Mathf.Lerp(leftSettings.focusDistance, distance, Time.deltaTime);	
+			} 
+			
+			if (nearest == _camera.gameObject) {
+				lerp = Mathf.Lerp(leftSettings.focusDistance, 100f, Time.deltaTime);
+			}
+
+			leftSettings.focusDistance = lerp;
+			rightSettings.focusDistance = lerp;				
+
+			_behaviourLeft.profile.depthOfField.settings = leftSettings;
+			_behaviourRight.profile.depthOfField.settings = rightSettings;
 		}
 
 		public void AutoAdjustIPD() {
@@ -78,7 +116,7 @@ namespace Pupil {
 			_ipd = _maxDistanceIPD;
 			if (nearest != _camera.gameObject) {
 				var distance = GetDistanceToGameObject(nearest);
-				if (distance >= _minDistance) {
+				if (distance < _maxDistance) {
 					_ipd = _minDistanceIPD;
 				}
 			}
@@ -88,18 +126,18 @@ namespace Pupil {
 																	_ipd,
 																	_camera.GetChild(0).transform.localPosition.z);
 
-			_camera.GetChild(0).transform.localPosition = new Vector3(_ipd, 
+			_camera.GetChild(0).transform.localPosition = Vector3.Lerp(_camera.GetChild(0).transform.localPosition, new Vector3(_ipd, 
 																	_camera.GetChild(0).transform.localPosition.y,
-																	_camera.GetChild(0).transform.localPosition.z);
+																	_camera.GetChild(0).transform.localPosition.z), Time.deltaTime);
 
 			//Right
 			_camera.GetChild(1).transform.localRotation = Quaternion.Euler(_camera.GetChild(1).transform.localPosition.x, 
 																	-_ipd, 
 																	_camera.GetChild(1).transform.localPosition.z);
-			
-			_camera.GetChild(1).transform.localPosition = new Vector3(-_ipd, 
+
+			_camera.GetChild(1).transform.localPosition = Vector3.Lerp(_camera.GetChild(1).transform.localPosition, new Vector3(-_ipd, 
 																	_camera.GetChild(1).transform.localPosition.y,
-																	_camera.GetChild(1).transform.localPosition.z);
+																	_camera.GetChild(1).transform.localPosition.z), Time.deltaTime);			
 			
 		}
 	}

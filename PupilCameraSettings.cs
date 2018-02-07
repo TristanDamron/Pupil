@@ -27,6 +27,7 @@ public class PupilCameraSettings : MonoBehaviour {
 
 	void Update () {
 		_camera.AutoAdjustIPD();
+		_camera.AutoAdjustDepthOfField();
 		if (_debug) 
 			_camera.DrawViewLines();
 	}
