@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.PostProcessing;
 
 namespace Pupil {
@@ -21,13 +22,12 @@ namespace Pupil {
 		private PostProcessingBehaviour _behaviourLeft;
 		private PostProcessingBehaviour _behaviourRight;
 
-		
 		public PupilCamera() {
 			if (GameObject.Find("PupilInitializer") == null) {
 				Debug.LogError("Error: No PupilInitializer GameObject found. Please add one to the hierarchy to properly load your VR device.");
 			}	
 
-			_camera = GameObject.FindGameObjectWithTag("MainCamera").transform;	
+			_camera = GameObject.Find("PupilCameraRig").transform;
 
 			if (_camera == null) {
 				Debug.LogError("Error: Camera not set. Please ensure that the PupilCameraRig is in the hierarchy and that there is only on camera with the MainCamera tag in the scene.");
@@ -59,6 +59,11 @@ namespace Pupil {
 			return distance;
 		}
 
+		public float GetDistanceToGameObject(GameObject obj, GameObject from) {
+			var distance = Vector3.Distance(from.transform.localPosition, obj.transform.position);
+			return distance;
+		}
+
 		public void SetMinDistanceIPD(float distance, float ipd) {
 			_minDistance = distance;
 			_minDistanceIPD = ipd;
@@ -71,7 +76,8 @@ namespace Pupil {
 
 		private GameObject FindNearest() {
 			RaycastHit hit;
-			if (Physics.Raycast(_camera.position, _camera.forward, out hit)) {
+			var rot = InputTracking.GetLocalRotation(XRNode.Head);
+			if (Physics.Raycast(_camera.position, rot * _camera.forward, out hit)) {
 				return hit.transform.gameObject;
 			}
 
@@ -88,17 +94,17 @@ namespace Pupil {
 				Debug.LogError("Error: Cannot adjust depth of field. PostProcessing profile(s) not found. Please attach a profile to the cameras' PostProcessingBehaviour.");
 			} else {
 				var nearest = FindNearest();
-				var distance = GetDistanceToGameObject(nearest);
+				var distance = GetDistanceToGameObject(nearest, _camera.gameObject);
 				var leftSettings = _behaviourLeft.profile.depthOfField.settings;
 				var rightSettings = _behaviourRight.profile.depthOfField.settings;
 
 				var lerp = 0f;
 				if (nearest != _camera.gameObject || distance <= _maxDistanceIPD) {
-					lerp = Mathf.Lerp(leftSettings.focusDistance, distance, Time.deltaTime);	
+					lerp = Mathf.Lerp(leftSettings.focusDistance, distance, Time.deltaTime * 60f);	
 				} 
 				
 				if (nearest == _camera.gameObject) {
-					lerp = Mathf.Lerp(leftSettings.focusDistance, 100f, Time.deltaTime);
+					lerp = Mathf.Lerp(leftSettings.focusDistance, 100f, Time.deltaTime * 60f);
 				}
 
 				leftSettings.focusDistance = lerp;
@@ -126,6 +132,9 @@ namespace Pupil {
 				}
 			}
 
+			//@TODO: Will this accurately give the rotation of the camera in VR space?
+			Debug.Log(InputTracking.GetLocalRotation(XRNode.CenterEye));
+
 			//Left
 			Quaternion leftSlerp = Quaternion.Euler(_camera.GetChild(0).transform.localPosition.x, 
 													_ipd,
@@ -133,7 +142,8 @@ namespace Pupil {
 
 			_camera.GetChild(0).transform.localRotation = Quaternion.Slerp(_camera.GetChild(0).transform.localRotation, leftSlerp, Time.deltaTime);
 			_camera.GetChild(0).transform.localPosition = Vector3.Lerp(_camera.GetChild(0).transform.localPosition, 
-																		new Vector3(_ipd, _camera.GetChild(0).transform.localPosition.y, _camera.GetChild(0).transform.localPosition.z), Time.deltaTime);
+																		new Vector3(_ipd, _camera.GetChild(0).transform.localPosition.y, _camera.GetChild(0).transform.localPosition.z), 
+																		Time.deltaTime);
 
 			//Right
 			Quaternion rightSlerp = Quaternion.Euler(_camera.GetChild(1).transform.localPosition.x, 
@@ -142,9 +152,9 @@ namespace Pupil {
 
 			_camera.GetChild(1).transform.localRotation = Quaternion.Slerp(_camera.GetChild(1).transform.localRotation, rightSlerp, Time.deltaTime); 
 			_camera.GetChild(1).transform.localPosition = Vector3.Lerp(_camera.GetChild(1).transform.localPosition, 
-																		new Vector3(-_ipd, _camera.GetChild(1).transform.localPosition.y, _camera.GetChild(1).transform.localPosition.z), Time.deltaTime);			
-			
+																		new Vector3(-_ipd, _camera.GetChild(1).transform.localPosition.y, _camera.GetChild(1).transform.localPosition.z), 
+																		Time.deltaTime);			
+
 		}
 	}
-
 }
