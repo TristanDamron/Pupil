@@ -1,6 +1,9 @@
 # Pupil v0.1
 Unity assets for low-impact image optimizations on low-powered VR hardware. 
 
+![Pupil Logo] (https://pbs.twimg.com/media/DYRiylRU8AA6P4u.jpg)
+*Pupil is 100% free to use, but it would be really awesome if you could credit it in your VR experience with the Pupil logo!*
+
 # Getting Started
 ## PupilCamera.cs
 Dynamically adjusts the camera to account for variable inter-pupillary distance (IPD) based on how far away an object is from the player.
