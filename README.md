@@ -1,4 +1,4 @@
-# Pupil 
+# Pupil v0.1
 Unity assets for low-impact image optimizations on low-powered VR hardware. 
 
 # Getting Started
@@ -8,7 +8,25 @@ Simply place the Prefabs/PupilCameraSettings prefab into the hierarchy to set ad
 
 PupilCamera.cs also has functionality for automatically adjusting depth of field for objeccts close to the player. *This feature requires Unity.PostProcessing.* Attach the PupilCameraProfile.asset to each camera's PostProcessingBehaviour component to trigger adjustments.
 
-## PupilImageBlur.cs
+## Prefabs/PupilCameraRig.prefab
+VR camera rig that supports dynamic IPD adjustments.  
+
+## Prefabs/PupilInitializer.prefab
+Loads the VR device for Unity.
+
+## Prefabs/PupilCameraSettings.prefab
+Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraRig prefab to be in the scene*
+
+# Shaders
+Pupil comes with a variety of shaders for image optimization and accessibility.
+
+## Shaders/StandardLowContrastOutline.shader
+Renders an outline around the object that is low contrast to the texture.
+
+## Shaders/UnlitLowContrastOutline.shader
+Like Shaders/StandardLowContrastOutline.shader, but unlit. 
+
+## *(Deprecated)* PupilImageBlur.cs 
 Using the PupilImageBlur class, materials using the Shaders/BlurEdges shader will have the blur effect occur at a variable rate depending on the movement of the HMD.
 
 *Example Script: Blur.cs*
@@ -30,12 +48,3 @@ public class Blur : MonoBehaviour {
 	}
 }
 ```
-
-## Prefabs/PupilCameraRig.prefab
-VR camera rig that supports dynamic IPD adjustments.  
-
-## Prefabs/PupilInitializer.prefab
-Loads the VR device for Unity
-
-## Prefabs/PupilCameraSettings.prefab
-Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraRig prefab to be in the scene*

@@ -1,25 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace Pupil {
 	// /*
 	// PupilImageBlur
 
 	// Blurs outline shaders at variable rate based on headset movement.
+	// DEPRECATED IN v0.1
 	// */
 	public static class PupilImageBlur {
 		public static Renderer renderer;
 		public static GameObject camera;
 		public static int refresh;
 		private static int _frames;
-		private static Vector3 _lastAngles;
+		private static Quaternion _lastRotation;
 
 		public static void SetEdgeShader () {
 			if (renderer == null) {
 				Debug.LogError("Error: Renderer has not been set. Cannot set Edge Shader.");	
 			} else {
-				renderer.material.shader = Shader.Find("Custom/BlurEdges");
+				renderer.material.shader = Shader.Find("Pupil/Unlit/BlurredOutline");
 			}
 		}
 
@@ -31,12 +33,14 @@ namespace Pupil {
 					Debug.LogWarning("Refresh rate not set, defaulting to 10 frames");
 					refresh = 10;
 				}
+				
 				_frames++;
-				//Not interested in the camera parent's location, but the location of its children.
-				if (_lastAngles.y != 0f) 
-					renderer.material.SetFloat("_Blur", camera.transform.GetChild(0).transform.localEulerAngles.y / _lastAngles.y);
+
+			
+				if (_lastRotation != InputTracking.GetLocalRotation(XRNode.Head)) 
+					renderer.material.SetFloat("_Alpha", InputTracking.GetLocalRotation(XRNode.Head).y / _lastRotation.y);
 				if (_frames >= refresh) {
-					_lastAngles = camera.transform.GetChild(0).localEulerAngles;
+					_lastRotation = InputTracking.GetLocalRotation(XRNode.Head);
 					_frames = 0;
 				}
 			}

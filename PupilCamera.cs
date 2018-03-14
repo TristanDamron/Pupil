@@ -100,11 +100,11 @@ namespace Pupil {
 
 				var lerp = 0f;
 				if (nearest != _camera.gameObject || distance <= _maxDistanceIPD) {
-					lerp = Mathf.Lerp(leftSettings.focusDistance, distance, Time.deltaTime * 60f);	
+					lerp = Mathf.Lerp(leftSettings.focusDistance, distance, Time.deltaTime * 30f);	
 				} 
 				
 				if (nearest == _camera.gameObject) {
-					lerp = Mathf.Lerp(leftSettings.focusDistance, 100f, Time.deltaTime * 60f);
+					lerp = Mathf.Lerp(leftSettings.focusDistance, 100f, Time.deltaTime);
 				}
 
 				leftSettings.focusDistance = lerp;
@@ -131,9 +131,6 @@ namespace Pupil {
 					_ipd = _minDistanceIPD;
 				}
 			}
-
-			//@TODO: Will this accurately give the rotation of the camera in VR space?
-			Debug.Log(InputTracking.GetLocalRotation(XRNode.CenterEye));
 
 			//Left
 			Quaternion leftSlerp = Quaternion.Euler(_camera.GetChild(0).transform.localPosition.x, 
