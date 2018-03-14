@@ -1,7 +1,7 @@
 # Pupil v0.1
 Unity assets for low-impact image optimizations on low-powered VR hardware. 
 
-![Pupil Logo] (https://pbs.twimg.com/media/DYRiylRU8AA6P4u.jpg)
+![Pupil Logo](https://pbs.twimg.com/media/DYRiylRU8AA6P4u.jpg)
 *Pupil is 100% free to use, but it would be really awesome if you could credit it in your VR experience with the Pupil logo!*
 
 # Getting Started
