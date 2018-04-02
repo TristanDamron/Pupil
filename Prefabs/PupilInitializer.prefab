@@ -51,4 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba4ebd90dd38134a80431bad0a18443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _device: cardboard
+  _device: 
