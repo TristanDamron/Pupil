@@ -53,7 +53,7 @@ namespace Pupil {
 		}
 
 		public void SetMaxDistance() {
-			PupilDataHolder.minDistance = _camera.GetDistanceToGameObject(_camera.FindNearest());
+			PupilDataHolder.maxDistance = _camera.GetDistanceToGameObject(_camera.FindNearest());
 			_camera.SetMaxDistanceIPD(PupilDataHolder.maxDistance, PupilDataHolder.maxIPD);
 		}
 		
