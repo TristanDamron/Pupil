@@ -1,3 +1,6 @@
+@Issue: Should the pupil camera be persistent?
+@Feature: Spawn pupil camera rig based on the device type in PupilInitializer
+
 # Pupil v0.2
 Unity assets for low-impact image optimizations on low-powered VR hardware. Download on [itch.io](https://tdamron.itch.io/pupil)
 
@@ -15,7 +18,7 @@ PupilCamera.cs also has functionality for automatically adjusting depth of field
 VR camera rig that supports dynamic IPD adjustments and dynamic depth of field adjustments from PupilCamear.cs.  
 
 ## Prefabs/PupilInitializer.prefab
-Loads the VR device for Unity.
+Loads the VR device for Unity and caches IPD settings from a json file.
 
 ## Prefabs/PupilCameraSettings.prefab
 Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraRig prefab to be in the scene*

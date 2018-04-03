@@ -46,14 +46,6 @@ namespace Pupil {
 			}
 		}
 		
-		public void ChangeIpd(float update) {
-			_ipd += update;
-		}
-
-		public float GetIPD() {
-			return _ipd;
-		}
-
 		public float GetDistanceToGameObject(GameObject obj) {
 			var distance = Vector3.Distance(_camera.position, obj.transform.position);
 			return distance;
@@ -74,7 +66,7 @@ namespace Pupil {
 			_maxDistanceIPD = ipd;
 		}
 
-		private GameObject FindNearest() {
+		public GameObject FindNearest() {
 			RaycastHit hit;
 			var rot = InputTracking.GetLocalRotation(XRNode.Head);
 			if (Physics.Raycast(_camera.position, rot * _camera.forward, out hit)) {
