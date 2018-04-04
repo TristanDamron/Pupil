@@ -5,11 +5,6 @@ using UnityEngine.XR;
 using UnityEngine.PostProcessing;
 
 namespace Pupil {
-	/*
-	PupilCamera
-
-	Functionality for adjusting the Unity camera settings to account for dynamically changing IPD and depth of field.
-	*/
 	public class PupilCamera {
 		private float _ipd;
 		private Transform _camera;
