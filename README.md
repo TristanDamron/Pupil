@@ -73,6 +73,12 @@ PostProcessingBehavior _behaviorRight
 
 Post processing behavior associated with the right camera on the PupilCameraRig.prefab prefab. Used for depth of field adjustments.
 
+```
+GameObject _nearest
+```
+
+The nearest GameObject that has been detected.
+
 ### Public Methods
 
 ```
@@ -104,6 +110,12 @@ GameObject FindNearest()
 ```
 
 Raycasts to find the object nearest to the front of the camera.
+
+```
+GameObject FindNearest(int ignoreLayer)
+```
+
+*Override* Raycasts to find the object nearest to the front of the camera while ignoring the layer at *ignoreLayer.*
 
 ```
 void DrawViewLines()
@@ -185,10 +197,22 @@ void SetMinDistance()
 Finds the closest GameObject to the camera and sets its distance to the static variable PupilDataHolder.minDistance
 
 ```
+void SetMinDistance(int ignoreLayer)
+```
+
+*Override* Finds the closest GameObject to the camera not in the layer *ignoreLayer* and sets its distance to the static variable PupilDataHolder.minDistance
+
+```
 void SetMaxDistance()
 ```
 
 Finds the closest GameObject to the camera and sets its distance to the static variable PupilDataHolder.maxDistance
+
+```
+void SetMaxDistance()
+```
+
+*Override* Finds the closest GameObject to the camera not in the layer *ignoreLayer* and sets its distance to the static variable PupilDataHolder.maxDistance
 
 ## PupilInitializer.cs
 Script for initializing the VR device for Unity as well as loading json data to the PupilDataHolder.cs

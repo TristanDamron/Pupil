@@ -11,7 +11,6 @@ namespace Pupil {
 	Functionality for adjusting the Unity camera settings to account for dynamically changing IPD and depth of field.
 	*/
 	public class PupilCamera {
-		//Difference between IPD at variable lengths 		
 		private float _ipd;
 		private Transform _camera;
 		private float _minDistance;
@@ -21,6 +20,7 @@ namespace Pupil {
 		private bool _autoAdjustWarnings;	
 		private PostProcessingBehaviour _behaviourLeft;
 		private PostProcessingBehaviour _behaviourRight;
+		private GameObject _nearest;
 
 		public PupilCamera() {
 			if (GameObject.Find("PupilInitializer") == null) {
@@ -28,6 +28,7 @@ namespace Pupil {
 			}	
 
 			_camera = GameObject.Find("PupilCameraRig").transform;
+			_nearest = _camera.gameObject;
 
 			if (_camera == null) {
 				Debug.LogError("Error: Camera not set. Please ensure that the PupilCameraRig is in the hierarchy and that there is only on camera with the MainCamera tag in the scene.");
@@ -70,10 +71,24 @@ namespace Pupil {
 			RaycastHit hit;
 			var rot = InputTracking.GetLocalRotation(XRNode.Head);
 			if (Physics.Raycast(_camera.position, rot * _camera.forward, out hit)) {
+				_nearest = hit.transform.gameObject;
 				return hit.transform.gameObject;
 			}
 
-			return _camera.gameObject;
+			return _nearest;
+		}
+
+		public GameObject FindNearest(int ignoreLayer) {
+			RaycastHit hit;
+			var rot = InputTracking.GetLocalRotation(XRNode.Head);
+			if (Physics.Raycast(_camera.position, rot * _camera.forward, out hit)) {
+				if (hit.transform.gameObject.layer != ignoreLayer) {
+					_nearest = hit.transform.gameObject;
+					return hit.transform.gameObject;
+				}
+			}
+
+			return _nearest;
 		}
 
 		public void DrawViewLines() {

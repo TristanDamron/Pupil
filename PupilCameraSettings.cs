@@ -24,8 +24,7 @@ namespace Pupil {
 			_minDistanceIPD = PupilDataHolder.minIPD;
 
 			_camera = new PupilCamera();		 	
-
-			//Set Pupil Settings
+			
 			_camera.SetMinDistanceIPD(_minDistance, _minDistanceIPD);
 			_camera.SetMaxDistanceIPD(_maxDistance, _maxDistanceIPD);
 		}
@@ -52,10 +51,19 @@ namespace Pupil {
 			_camera.SetMinDistanceIPD(PupilDataHolder.minDistance, PupilDataHolder.minIPD);
 		}
 
+		public void SetMinDistance(int ignoreLayer) {
+			PupilDataHolder.minDistance = _camera.GetDistanceToGameObject(_camera.FindNearest(ignoreLayer));			
+			_camera.SetMinDistanceIPD(PupilDataHolder.minDistance, PupilDataHolder.minIPD);			
+		}
+
 		public void SetMaxDistance() {
 			PupilDataHolder.maxDistance = _camera.GetDistanceToGameObject(_camera.FindNearest());
 			_camera.SetMaxDistanceIPD(PupilDataHolder.maxDistance, PupilDataHolder.maxIPD);
 		}
-		
+
+		public void SetMaxDistance(int ignoreLayer) {
+			PupilDataHolder.maxDistance = _camera.GetDistanceToGameObject(_camera.FindNearest(ignoreLayer));			
+			_camera.SetMaxDistanceIPD(PupilDataHolder.maxDistance, PupilDataHolder.maxIPD);			
+		}				
 	}
 }

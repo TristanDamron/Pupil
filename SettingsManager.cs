@@ -32,11 +32,10 @@ public class SettingsManager : MonoBehaviour {
 
 	void Update() {
 		if (_minTest) {
-			//@TODO: This should ignore UI elements. Maybe make the ball the confirm button so the distance isn't set to the canvas
-			_settings.SetMinDistance();
+			_settings.SetMinDistance(LayerMask.GetMask("UI"));
 			_settings.SetMinDistanceIPD(_ipdSlider.value);
 		} else {
-			_settings.SetMaxDistance();
+			_settings.SetMaxDistance(LayerMask.GetMask("UI"));
 			_settings.SetMaxDistanceIPD(_ipdSlider.value);			
 		}
 	}
