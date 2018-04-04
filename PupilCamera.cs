@@ -99,18 +99,17 @@ namespace Pupil {
 		public void AutoAdjustDepthOfField() {
 			if (_behaviourLeft.profile == null || _behaviourRight.profile == null) {
 				Debug.LogError("Error: Cannot adjust depth of field. PostProcessing profile(s) not found. Please attach a profile to the cameras' PostProcessingBehaviour.");
-			} else {
-				var nearest = FindNearest();
-				var distance = GetDistanceToGameObject(nearest, _camera.gameObject);
+			} else {				
+				var distance = GetDistanceToGameObject(_nearest, _camera.gameObject);
 				var leftSettings = _behaviourLeft.profile.depthOfField.settings;
 				var rightSettings = _behaviourRight.profile.depthOfField.settings;
 
 				var lerp = 0f;
-				if (nearest != _camera.gameObject || distance <= _maxDistanceIPD) {
+				if (_nearest != _camera.gameObject || distance <= _maxDistanceIPD) {
 					lerp = Mathf.Lerp(leftSettings.focusDistance, distance, Time.deltaTime * 30f);	
 				} 
 				
-				if (nearest == _camera.gameObject) {
+				if (_nearest == _camera.gameObject) {
 					lerp = Mathf.Lerp(leftSettings.focusDistance, 100f, Time.deltaTime);
 				}
 
@@ -129,11 +128,10 @@ namespace Pupil {
 				_autoAdjustWarnings = true;
 			}
 
-			var nearest = FindNearest();
 			//Default to max distance IPD
 			_ipd = _maxDistanceIPD;
-			if (nearest != _camera.gameObject) {
-				var distance = GetDistanceToGameObject(nearest);
+			if (_nearest != _camera.gameObject) {
+				var distance = GetDistanceToGameObject(_nearest);
 				if (distance < _maxDistance) {
 					_ipd = _minDistanceIPD;
 				}
