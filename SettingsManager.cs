@@ -21,10 +21,13 @@ public class SettingsManager : MonoBehaviour {
 	private LerpBetweenPoints _lerp;
 	[SerializeField]
 	private Button _finishButton;
+	[SerializeField]
+	private Canvas _canvas;
 
 	void Start() {
 		_testMessage = "Please adjust the slider until the ball is clearly visible.";
 		_text.text = _testMessage;
+		_canvas.worldCamera = GameObject.Find("Left").GetComponent<Camera>();
 	}
 
 	void Update() {
@@ -54,7 +57,8 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	public void FinishTests() {
-		_testMessage = "Calibration completed! Returning to the main scene...";
+		_testMessage = "Calibration complete! Returning to the main scene...";
+		_text.text = _testMessage;
 		_initializer.SaveDataAsJson();
 		Invoke("LoadSceneZero", 5f);
 	}

@@ -10,12 +10,23 @@ namespace Pupil {
         private string _device;
         private string _path;        
         private PupilData _data;
+        public static PupilInitializer instance;
+
+        void Awake() {
+            if (instance == null) {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            } else {
+                Destroy(gameObject);
+            }
+        }
 
         void Start () {
             XRSettings.LoadDeviceByName(_device);
             var persistentPath = Application.persistentDataPath;
             _path = Path.Combine(persistentPath, "PupilData.json");  
             LoadFromJson();      
+            CreateRigForDevice();
         }
 
         public void LoadFromJson() {
@@ -47,5 +58,17 @@ namespace Pupil {
             var json = JsonUtility.ToJson(_data);
             File.WriteAllText(_path, json);
         }
+
+        private void CreateRigForDevice() {            
+            var rig = (GameObject)Resources.Load("PupilCameraRig");
+
+            switch (_device) {
+                case "OpenVR":
+                    rig = (GameObject)Resources.Load("PupilSteamVRCameraRig");
+                    break;
+            }
+
+            Instantiate(rig, Vector3.zero, Quaternion.identity);            
+        }        
     }
 }
