@@ -16,24 +16,32 @@ namespace Pupil {
 		private float _maxDistance;
 		[SerializeField]
 		private bool _debug;
+		private bool _cameraSet;
 
 		void Start () {
-			_minDistance = PupilDataHolder.minDistance;
-			_maxDistance = PupilDataHolder.maxDistance;		
-			_maxDistanceIPD = PupilDataHolder.maxIPD;
-			_minDistanceIPD = PupilDataHolder.minIPD;
-
-			_camera = new PupilCamera();		 	
-			
-			_camera.SetMinDistanceIPD(_minDistance, _minDistanceIPD);
-			_camera.SetMaxDistanceIPD(_maxDistance, _maxDistanceIPD);
+			Invoke("SetCamera", 1f);
 		}
 
 		void Update () {
-			_camera.AutoAdjustIPD();
-			_camera.AutoAdjustDepthOfField();
-			if (_debug) 
-				_camera.DrawViewLines();
+			if (_cameraSet) {
+				_camera.AutoAdjustIPD();
+				_camera.AutoAdjustDepthOfField();
+				if (_debug) 
+					_camera.DrawViewLines();
+			}
+		}
+
+		public void SetCamera() {
+			_minDistance = PupilDataHolder.minDistance;
+			_maxDistance = PupilDataHolder.maxDistance;		
+			_maxDistanceIPD = PupilDataHolder.maxIPD;
+			_minDistanceIPD = PupilDataHolder.minIPD;			
+			
+			_camera = new PupilCamera();		 	
+
+			_camera.SetMinDistanceIPD(_minDistance, _minDistanceIPD);
+			_camera.SetMaxDistanceIPD(_maxDistance, _maxDistanceIPD);
+			_cameraSet = true;
 		}
 
 		public void SetMinDistanceIPD(float ipd) {

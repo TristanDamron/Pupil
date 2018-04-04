@@ -16,17 +16,14 @@ namespace Pupil {
             if (instance == null) {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
+                XRSettings.LoadDeviceByName(_device);
+                var persistentPath = Application.persistentDataPath;
+                _path = Path.Combine(persistentPath, "PupilData.json");  
+                LoadFromJson();      
+                CreateRigForDevice();                
             } else {
                 Destroy(gameObject);
             }
-        }
-
-        void Start () {
-            XRSettings.LoadDeviceByName(_device);
-            var persistentPath = Application.persistentDataPath;
-            _path = Path.Combine(persistentPath, "PupilData.json");  
-            LoadFromJson();      
-            CreateRigForDevice();
         }
 
         public void LoadFromJson() {
@@ -40,13 +37,14 @@ namespace Pupil {
                 _data.maxIPD = 0f;
                 _data.maxDistance = 30f;
                 _data.minDistance = 0f;
-                SaveDataAsJson();
             }		
             
             PupilDataHolder.minIPD = _data.minIPD;                       
             PupilDataHolder.maxIPD = _data.maxIPD;
             PupilDataHolder.maxDistance = _data.maxDistance;
             PupilDataHolder.minDistance = _data.minDistance;
+
+            SaveDataAsJson();            
 	    }
 
         public void SaveDataAsJson() {

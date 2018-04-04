@@ -22,7 +22,8 @@ namespace Pupil {
 				Debug.LogError("Error: No PupilInitializer GameObject found. Please add one to the hierarchy to properly load your VR device.");
 			}	
 
-			_camera = GameObject.Find("PupilCameraRig").transform;
+			//@TODO: Make this work with any rig.
+			_camera = GameObject.Find("PupilCameraRig(Clone)").transform;
 			_nearest = _camera.gameObject;
 
 			if (_camera == null) {
@@ -40,6 +41,11 @@ namespace Pupil {
 			if (_behaviourRight == null) {
 				Debug.LogError("Error: No post processing behaviour found on the right camera.");			
 			}
+		}
+
+		public void FindCameraRig() {
+			_camera = GameObject.Find("PupilCameraRig").transform;
+			_nearest = _camera.gameObject;			
 		}
 		
 		public float GetDistanceToGameObject(GameObject obj) {
