@@ -227,6 +227,14 @@ void SaveDataAsJson()
 
 Converts PupilData to PlayerData.json.
 
+### Private Methods
+
+```
+void CreateRigForDevice()
+```
+
+Instantiates a camera rig based on the loaded VR device.
+
 ## PupilData.cs
 Serializable object for saving and loading user data to/from PlayerData.json
 
