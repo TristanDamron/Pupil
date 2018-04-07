@@ -342,4 +342,4 @@ Like Shaders/StandardLowContrastOutline.shader, but unlit.
 *New in v0.2!* Pupil now includes scenes to help developers set IPD data for their users.
 
 ## Scenes/SettingsMenu.unity
-Scene used for setting the user's IPD.
+Scene used for setting the user's IPD. *Comes without raycasting controllers for UI elements.*
