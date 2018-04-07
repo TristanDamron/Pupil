@@ -13,7 +13,7 @@ using Pupil;
 
 ## PupilCamera.cs
 Dynamically adjusts the camera to account for variable inter-pupillary distance (IPD) based on how far away an object is from the player.
-Simply place the Prefabs/PupilCameraSettings prefab into the hierarchy to set adjustment variables and trigger adjustments.
+Simply place the Resources/PupilCameraSettings prefab into the hierarchy to set adjustment variables and trigger adjustments.
 
 PupilCamera.cs also has functionality for automatically adjusting depth of field for objects close to the player. *This feature requires Unity.PostProcessing.* Attach the PupilCameraProfile.asset to each camera's PostProcessingBehaviour component to trigger adjustments.
 
@@ -329,16 +329,16 @@ static float maxDistance
 
 Maximum recorded distance.
 
-## Prefabs/PupilCameraRig.prefab
+## Resources/PupilCameraRig.prefab
 VR camera rig that supports dynamic IPD adjustments and dynamic depth of field adjustments from PupilCamear.cs.  
 
-## Prefabs/PupilInitializer.prefab
+## Resources/PupilInitializer.prefab
 Loads the VR device for Unity and caches IPD settings from a json file.
 
-## Prefabs/PupilCameraSettings.prefab
+## Resources/PupilCameraSettings.prefab
 Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraRig prefab to be in the scene*
 
-## Prefabs/PupilSteamVRCameraRig.prefab
+## Resources/PupilSteamVRCameraRig.prefab
 Slightly modified SteamVR camera rig that includes the PupilCameraRig prefab. *Requires the SteamVR Unity plugin* 
 
 # Shaders
