@@ -226,6 +226,18 @@ string _device
 Serialized variable for the name of the VR device. Used for device loading.
 
 ```
+Vector3 _rigPosition
+```
+
+Serialized variable for the spawn position of the camera rig.
+
+```
+Quaternion _rigRotation
+```
+
+Serialized variable for the spawn rotation of the camera rig.
+
+```
 string _path
 ```
 

@@ -8,6 +8,10 @@ namespace Pupil {
     public class PupilInitializer : MonoBehaviour {
         [SerializeField]
         private string _device;
+        [SerializeField]
+        private Vector3 _rigPosition;
+        [SerializeField]
+        private Quaternion _rigRotation;        
         private string _path;        
         private PupilData _data;
         public static PupilInitializer instance;
@@ -66,7 +70,7 @@ namespace Pupil {
                     break;
             }
 
-            Instantiate(rig, Vector3.zero, Quaternion.identity);            
+            Instantiate(rig, _rigPosition, _rigRotation);            
         }        
     }
 }
