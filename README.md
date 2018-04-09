@@ -329,6 +329,51 @@ static float maxDistance
 
 Maximum recorded distance.
 
+## PupilProfileData.cs
+Class for collecting system information. Useful for testing the performance of your VR experience.
+
+## Public fields
+
+```
+static int fps
+```
+
+Static field for frames per second of the application.
+
+```
+static float cpu
+```
+
+Static field for the total percentage of CPU usage.
+
+```
+static float memory
+```
+
+Static field for the total available memory in MBytes.
+
+## Private fields
+
+```
+static PerformanceCounter _cpuCounter
+```
+
+Samples CPU usage.
+
+```
+static PerformanceCounter _memoryCounter
+```
+
+Samples available memory.
+
+## Public methods
+
+```
+static void TakeSample()
+```
+
+Static method that records a data sample to static members. 
+
 ## Resources/PupilCameraRig.prefab
 VR camera rig that supports dynamic IPD adjustments and dynamic depth of field adjustments from PupilCamear.cs.  
 
@@ -340,6 +385,9 @@ Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraR
 
 ## Resources/PupilSteamVRCameraRig.prefab
 Slightly modified SteamVR camera rig that includes the PupilCameraRig prefab. *Requires the SteamVR Unity plugin* 
+
+## Resources/PupilProfiler.prefab
+Records system information and dumps it in a text file.
 
 # Shaders
 Pupil comes with a variety of shaders for image optimization and accessibility.
