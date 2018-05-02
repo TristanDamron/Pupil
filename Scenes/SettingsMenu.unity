@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.49641287, b: 0.5748173, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -548,7 +548,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 99158d9f0f76ccb4f82783e2cbb0fca6, type: 2}
+  - {fileID: 2100000, guid: 3360e26ed5dfca143830b1c4690f72fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1904,7 +1904,7 @@ Prefab:
     - target: {fileID: 114919011058464418, guid: 74f0cba11caf8e64c9835de06c974fb4,
         type: 2}
       propertyPath: _device
-      value: OpenVR
+      value: cardboard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74f0cba11caf8e64c9835de06c974fb4, type: 2}

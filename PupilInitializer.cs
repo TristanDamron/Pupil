@@ -17,17 +17,11 @@ namespace Pupil {
         public static PupilInitializer instance;
 
         void Awake() {
-            if (instance == null) {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-                XRSettings.LoadDeviceByName(_device);
-                var persistentPath = Application.persistentDataPath;
-                _path = Path.Combine(persistentPath, "PupilData.json");  
-                LoadFromJson();      
-                CreateRigForDevice();                
-            } else {
-                Destroy(gameObject);
-            }
+            XRSettings.LoadDeviceByName(_device);
+            var persistentPath = Application.persistentDataPath;
+            _path = Path.Combine(persistentPath, "PupilData.json");  
+            LoadFromJson();      
+            CreateRigForDevice();                
         }
 
         public void LoadFromJson() {
@@ -67,6 +61,8 @@ namespace Pupil {
             switch (_device) {
                 case "OpenVR":
                     rig = (GameObject)Resources.Load("PupilSteamVRCameraRig");
+                    if (GameObject.Find("[SteamVR]") == null) 
+                        Debug.LogWarning("Error: No SteamVR prefab found in scene. Controller tracking will be disabled.");
                     break;
             }
 

@@ -74,12 +74,30 @@ PostProcessingBehavior _behaviorRight
 Post processing behavior associated with the right camera on the PupilCameraRig.prefab prefab. Used for depth of field adjustments.
 
 ```
+Transform _left
+```
+
+The transform object associated with the left camera.
+
+```
+Transform _right
+```
+
+The transform object associated with the right camera.
+
+```
 GameObject _nearest
 ```
 
 The nearest GameObject that has been detected.
 
 ### Public Methods
+
+```
+void FindCameraRig()
+```
+
+Finds the camera rig tagged as "MainCamera" and sets it equal to _camera.
 
 ```
 float GetDistanceToGameObject(GameObject obj)
@@ -176,7 +194,19 @@ bool _debug
 
 Serialized variable for showing debug info. 
 
+```
+bool _cameraSet
+```
+
+Lock to see if the camera variables have been initialized properly.
+
 ### Public Methods
+
+```
+void SetCamera()
+```
+
+Sets the camera variables from static variables in PupilDataHolder.
 
 ```
 void SetMinDistanceIPD(float ipd)
@@ -215,7 +245,7 @@ void SetMaxDistance()
 *Override* Finds the closest GameObject to the camera not in the layer *ignoreLayer* and sets its distance to the static variable PupilDataHolder.maxDistance
 
 ## PupilInitializer.cs
-Script for initializing the VR device for Unity as well as loading json data to the PupilDataHolder.cs
+Script for initializing the VR device for Unity as well as loading json data to the PupilDataHolder.cs. Component is responsible for instantiating a camera rig based on the loaded device.
 
 ### Private fields
 
@@ -248,6 +278,14 @@ PupilData _data
 ```
 
 PupilData object that is saved/loaded to/from PlayerData.json.
+
+### Public fields
+
+```
+static PupilInitializer instance
+```
+
+Used to ensure there is only one PupilInitializer loaded per session.
 
 ### Public Methods
 
@@ -384,7 +422,7 @@ Loads the VR device for Unity and caches IPD settings from a json file.
 Sets camera IPD settings and triggers auto adjustments. *Requires a PupilCameraRig prefab to be in the scene*
 
 ## Resources/PupilSteamVRCameraRig.prefab
-Slightly modified SteamVR camera rig that includes the PupilCameraRig prefab. *Requires the SteamVR Unity plugin* 
+Slightly modified SteamVR camera rig that includes the PupilCameraRig prefab. *Requires the SteamVR Unity pluginand [SteamVR] prefab in scene* 
 
 ## Resources/PupilProfiler.prefab
 Records system information and dumps it in a text file.

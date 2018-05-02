@@ -28,6 +28,7 @@ public class SettingsManager : MonoBehaviour {
 		_testMessage = "Please adjust the slider until the ball is clearly visible.";
 		_text.text = _testMessage;
 		_canvas.worldCamera = GameObject.Find("Left").GetComponent<Camera>();
+		_minTest = false;
 	}
 
 	void Update() {
@@ -62,7 +63,16 @@ public class SettingsManager : MonoBehaviour {
 		Invoke("LoadSceneZero", 5f);
 	}
 
+	public void SaveData() {
+		_initializer.SaveDataAsJson();
+	}
+
 	public void LoadSceneZero() {
 		SceneManager.LoadScene(0);
 	}	
+
+	public void LoadSceneNext() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	}	
+
 }

@@ -9,7 +9,6 @@ public class LerpBetweenPoints : MonoBehaviour {
 
 	void Start() {
 		StartCoroutine(SetStartPosition());
-		_target = new Vector3(0f, 1f, 55f);
 	}
 
 	void Update () {
@@ -23,7 +22,7 @@ public class LerpBetweenPoints : MonoBehaviour {
 
 	IEnumerator SetStartPosition() {
 		yield return new WaitForSeconds(1f);
-		transform.position = new Vector3 (0, 1, 100);
+		_target = new Vector3 (0, 1, 21);
 		_start = true;
 	}
 }
