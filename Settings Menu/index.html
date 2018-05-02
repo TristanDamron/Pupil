@@ -10,7 +10,7 @@
                 $('form').submit(function (event) {
                     event.preventDefault();
                     var data = JSON.stringify($(this).serializeArray());
-                    console.log("dump");
+                    $('#tooltip').text("Saved succesfully to PupilData.json");
                     dumpToFile(data);          
                 }); 
 
