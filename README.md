@@ -1,4 +1,4 @@
-# Pupil v0.2 BETA
+# Pupil v0.3 BETA
 Unity assets for low-impact image optimizations on low-powered VR hardware. Download on [itch.io](https://tdamron.itch.io/pupil)
 
 ![Pupil Logo](https://pbs.twimg.com/media/DYRiylRU8AA6P4u.jpg)
@@ -437,7 +437,7 @@ Renders an outline around the object that is low contrast to the texture.
 Like Shaders/StandardLowContrastOutline.shader, but unlit. 
 
 # Scenes
-*New in v0.2!* Pupil now includes scenes to help developers set IPD data for their users.
+Pupil now scenes to help developers set IPD data for their users.
 
 ## Scenes/SettingsMenu.unity
 Scene used for setting the user's IPD. *Comes without raycasting controllers for UI elements.*
