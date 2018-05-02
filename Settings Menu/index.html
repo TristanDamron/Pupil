@@ -1,0 +1,112 @@
+<html>
+    <title>Pupil Settings Menu</title>
+    <link rel="stylesheet" type="text/css" href="main.css">    
+    <head>            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="main.js"></script>
+        <script>window.$ = window.jQuery = require('jquery');</script>
+        <script>         
+            $(document).ready(function() {              
+                $('form').submit(function (event) {
+                    event.preventDefault();
+                    var data = JSON.stringify($(this).serializeArray());
+                    console.log("dump");
+                    dumpToFile(data);          
+                }); 
+
+                $('#left').click(function (event) {
+                    event.preventDefault();
+                    changeImage();
+                });
+
+                $('#right').click(function (event) {
+                    event.preventDefault();
+                    changeImage();
+                });
+
+                $('#tooltip1,#tooltip2,#tooltip3,#tooltip4').each(function () {
+                    $(this).click(function (event) {
+                        event.preventDefault();
+                        $('#tooltip').text($(this).attr('alt'));
+                    });
+                });
+                
+                function changeImage() {
+                    var left = $('#left').val();
+                    var right = $('#right').val();
+                    
+                    if (left == 1) {
+                        $('#left-eye').attr('src','img/Left.png');
+                    } else if (left == 2) {
+                        $('#left-eye').attr('src','img/Center.png');
+                    } else {
+                        $('#left-eye').attr('src','img/Right.png');
+                    }
+
+                    if (right == 1) {
+                        $('#right-eye').attr('src','img/Left.png');
+                    } else if (right == 2) {
+                        $('#right-eye').attr('src','img/Center.png');
+                    } else {
+                        $('#right-eye').attr('src','img/Right.png');
+                    }
+                }
+            });            
+        </script>
+    </head>
+    <body>
+        <center>
+            <h1>
+                Pupil Settings Menu
+            </h1>            
+            <form>
+                <div class="inline">
+                    <!-- @TODO: Add fields for left and right eyes in PupilDataHolder -->
+                    <p>Left Eye</p>
+                    <input id="left" type="range" min="1" max="3" value="2">                    
+                </div>
+
+                <div class="inline">
+                    <p>Right Eye</p>
+                    <input id="right" type="range" min="1" max="3" value="2">       
+                </div>
+
+                <div class="inline">
+                    <img id="left-eye" src="img/Center.png" width="30px" height="30px"/>                    
+                </div>
+
+                <div class="inline">
+                    <img id="right-eye" src="img/Center.png" width="30px" height="30px"/>
+                </div>
+
+                <p>Min Distance IPD (% decimal)</p>
+                <input type="text" name="minIPD">    
+                <div class="inline">
+                    <img id="tooltip1" alt="This value corresponds to the percent change between your pupils when looking at an object close up versus far away." src="img/Tooltip.png" width="20px" height="20px"/>
+                </div>
+    
+                <p>Max Distance IPD (% decimal)</p>
+                <input type="text" name="maxIPD">
+                <div class="inline">
+                    <img id="tooltip2" alt="This value corresponds to the percent change between your pupils when looking at an object far away versus close up. (Usually 1)" src="img/Tooltip.png" width="20px" height="20px"/>
+                </div>                
+
+                <p>Min Distance</p>
+                <input type="number" name="minDistance">
+                <div class="inline">
+                    <img id="tooltip3" alt="The minimum distance before the camera's IPD changes to the minimum setting." src="img/Tooltip.png" width="20px" height="20px"/>
+                </div>
+
+                <p>Max Distance</p>
+                <input type="number" name="maxDistance">                
+                <div class="inline">
+                    <img id="tooltip4" alt="The minimum distance before the camera's IPD changes to the maximum setting." src="img/Tooltip.png" width="20px" height="20px"/>
+                </div>                
+
+                </br></br>
+                <input class="button" type="submit" value="Save">                
+            </form>
+        </center>
+        <div id="tooltip" class="tooltip"></div>
+    </body>
+</html>

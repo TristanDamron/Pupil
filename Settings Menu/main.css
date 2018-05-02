@@ -1,0 +1,32 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    height: 10%;
+    width: 100%;
+    background-color: #cc6677;
+    top: 0;
+    color: #fff;    
+}
+
+.inline {
+    display: inline-block;
+}
+
+.button {
+    width: 10%;
+    height: 5%;
+    background-color: #882255;
+    color: #fff;
+    border-radius: 20%;
+}
+
+.tooltip {
+    background-color: #88ccee;    
+    height: 10%;
+    width: 100%;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "pupil-settings-menu",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^1.8.6",
+    "file-system": "^2.2.2",
+    "jquery": "^3.3.1"
+  }
+}
