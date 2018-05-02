@@ -31,21 +31,27 @@ namespace Pupil {
             } else {
                 Debug.LogWarning("Warning: PupilData.json not found, applying default settings.");
                 _data = new PupilData();
+                _data.left = 1;
+                _data.right = 1;                
                 _data.minIPD = 0f;
                 _data.maxIPD = 0f;
                 _data.maxDistance = 30f;
                 _data.minDistance = 0f;
             }		
             
+            PupilDataHolder.left = _data.left;
+            PupilDataHolder.right = _data.right;
             PupilDataHolder.minIPD = _data.minIPD;                       
             PupilDataHolder.maxIPD = _data.maxIPD;
             PupilDataHolder.maxDistance = _data.maxDistance;
-            PupilDataHolder.minDistance = _data.minDistance;
+            PupilDataHolder.minDistance = _data.minDistance;            
 
             SaveDataAsJson();            
 	    }
 
         public void SaveDataAsJson() {
+            _data.left = PupilDataHolder.left;
+            _data.right = PupilDataHolder.right;
             _data.minIPD = PupilDataHolder.minIPD;
             _data.maxIPD = PupilDataHolder.maxIPD;
             _data.minDistance = PupilDataHolder.minDistance;
