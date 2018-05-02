@@ -31,8 +31,8 @@ namespace Pupil {
             } else {
                 Debug.LogWarning("Warning: PupilData.json not found, applying default settings.");
                 _data = new PupilData();
-                _data.left = 1;
-                _data.right = 1;                
+                _data.left = 0;
+                _data.right = 0;                
                 _data.minIPD = 0f;
                 _data.maxIPD = 0f;
                 _data.maxDistance = 30f;

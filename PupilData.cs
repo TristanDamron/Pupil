@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Pupil {
 	[System.Serializable]
 	public class PupilData {
-		public int left;
-		public int right;
+		public float left;
+		public float right;
 		public float minIPD;
 		public float maxIPD;
 		public float minDistance;
