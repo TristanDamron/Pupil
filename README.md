@@ -1,4 +1,4 @@
-# Pupil v0.2 BETA
+# Pupil v0.2
 Unity assets for low-impact image optimizations on low-powered VR hardware. Download on [itch.io](https://tdamron.itch.io/pupil)
 
 ![Pupil Logo](https://pbs.twimg.com/media/DYRiylRU8AA6P4u.jpg)
