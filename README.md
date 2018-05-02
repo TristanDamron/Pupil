@@ -315,6 +315,18 @@ Serializable object for saving and loading user data to/from PlayerData.json
 ### Public fields
 
 ```
+int left
+```
+
+Left eye offset.
+
+```
+int right
+```
+
+Right eye offset.
+
+```
 float minIPD
 ```
 
@@ -342,6 +354,18 @@ Maximum recorded distance.
 Static class that holds the loaded data from PupilData.cs
 
 ### Public fields
+
+```
+static int left
+```
+
+Recorded left eye offset.
+
+```
+static int right
+```
+
+Recorded right eye offset.
 
 ```
 static float minIPD
