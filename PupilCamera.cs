@@ -157,7 +157,7 @@ namespace Pupil {
 
 			//Left
 			Quaternion leftSlerp = Quaternion.Euler(_left.localPosition.x, 
-													_ipd,
+													_ipd + PupilDataHolder.left,
 													_left.localPosition.z);
 
 			_left.localRotation = Quaternion.Slerp(_left.localRotation, leftSlerp, Time.deltaTime * 3f);
@@ -167,7 +167,7 @@ namespace Pupil {
 
 			//Right
 			Quaternion rightSlerp = Quaternion.Euler(_right.localPosition.x, 
-													-_ipd, 
+													-_ipd + PupilDataHolder.right, 
 													_right.localPosition.z);
 
 			_right.localRotation = Quaternion.Slerp(_right.localRotation, rightSlerp, Time.deltaTime * 3f); 
