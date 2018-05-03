@@ -7,6 +7,11 @@ namespace Pupil {
 	public class PupilCameraSettings : MonoBehaviour {
 		private PupilCamera _camera;
 		[SerializeField]
+		private float _left;
+		[SerializeField]
+		private float _right;
+
+		[SerializeField]
 		private float _minDistanceIPD;
 		[SerializeField]
 		private float _minDistance;
@@ -32,6 +37,8 @@ namespace Pupil {
 		}
 
 		public void SetCamera() {
+			_left = PupilDataHolder.left;
+			_right = PupilDataHolder.right;
 			_minDistance = PupilDataHolder.minDistance;
 			_maxDistance = PupilDataHolder.maxDistance;		
 			_maxDistanceIPD = PupilDataHolder.maxIPD;
