@@ -10,7 +10,6 @@ namespace Pupil {
 		private float _left;
 		[SerializeField]
 		private float _right;
-
 		[SerializeField]
 		private float _minDistanceIPD;
 		[SerializeField]
@@ -19,6 +18,14 @@ namespace Pupil {
 		private float _maxDistanceIPD;
 		[SerializeField]
 		private float _maxDistance;
+		[SerializeField]
+		private string _red;
+		[SerializeField]
+		private string _blue;
+		[SerializeField]
+		private string _green;
+		[SerializeField]
+		private string _yellow;		
 		[SerializeField]
 		private bool _debug;
 		private bool _cameraSet;
@@ -43,7 +50,11 @@ namespace Pupil {
 			_maxDistance = PupilDataHolder.maxDistance;		
 			_maxDistanceIPD = PupilDataHolder.maxIPD;
 			_minDistanceIPD = PupilDataHolder.minIPD;			
-			
+			_red = PupilDataHolder.red;
+			_blue = PupilDataHolder.blue;
+			_green = PupilDataHolder.green;
+			_yellow = PupilDataHolder.yellow;
+
 			_camera = new PupilCamera();		 	
 
 			_camera.SetMinDistanceIPD(_minDistance, _minDistanceIPD);

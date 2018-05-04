@@ -10,5 +10,9 @@ namespace Pupil {
 		public static float maxIPD;
 		public static float minDistance;
 		public static float maxDistance;
+		public static string red;
+		public static string blue;
+		public static string green;
+		public static string yellow;
 	}
 }

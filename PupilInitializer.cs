@@ -37,6 +37,10 @@ namespace Pupil {
                 _data.maxIPD = 0f;
                 _data.maxDistance = 30f;
                 _data.minDistance = 0f;
+                _data.red = "#000000";
+                _data.blue = "#000000";
+                _data.green = "#000000";
+                _data.yellow = "#000000";
             }		
             
             PupilDataHolder.left = _data.left;
@@ -45,6 +49,10 @@ namespace Pupil {
             PupilDataHolder.maxIPD = _data.maxIPD;
             PupilDataHolder.maxDistance = _data.maxDistance;
             PupilDataHolder.minDistance = _data.minDistance;            
+            PupilDataHolder.red = _data.red;
+            PupilDataHolder.blue = _data.blue;
+            PupilDataHolder.green = _data.green;
+            PupilDataHolder.yellow = _data.yellow;
 
             SaveDataAsJson();            
 	    }
@@ -56,6 +64,10 @@ namespace Pupil {
             _data.maxIPD = PupilDataHolder.maxIPD;
             _data.minDistance = PupilDataHolder.minDistance;
             _data.maxDistance = PupilDataHolder.maxDistance;
+            _data.red = PupilDataHolder.red;
+            _data.blue = PupilDataHolder.blue;
+            _data.green = PupilDataHolder.green;
+            _data.yellow = PupilDataHolder.yellow;
             
             var json = JsonUtility.ToJson(_data);
             File.WriteAllText(_path, json);
