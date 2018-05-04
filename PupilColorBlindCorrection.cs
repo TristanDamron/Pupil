@@ -20,12 +20,13 @@ public class PupilColorBlindCorrection : MonoBehaviour {
 		ColorUtility.TryParseHtmlString(PupilDataHolder.green, out _green);
 		ColorUtility.TryParseHtmlString(PupilDataHolder.yellow, out _yellow);
 
-		if (_renderer.material.shader != _colorBlindShader) {
+		if (_renderer.material.shader != _colorBlindShader && PupilDataHolder.colorBlind) {
 			Debug.LogWarning("Warning: Gameobject " + gameObject.name + " does not have the ColorblindCorrection shader. Swapping now.");
 			SwapShader();
 		}
 
-		SetTint();
+		if (PupilDataHolder.colorBlind)
+			SetTint();
 	}
 
 	private void SwapShader() {
@@ -49,9 +50,10 @@ public class PupilColorBlindCorrection : MonoBehaviour {
 				_renderer.material.SetColor("_Tint", _blue / color.b);
 			}
 			
-			if (color.g + color.r >= 0.25) {
-				_renderer.material.SetColor("_Tint", _yellow / (color.g + color.r));
-			}
+			// @TODO: Pupil is recognizing everything as yellow... 
+			// if (color.g + color.r >= 0.25) {
+			// 	_renderer.material.SetColor("_Tint", _yellow / (color.g + color.r));
+			// }
 		}
 		
 		if (tex != null){
@@ -69,9 +71,9 @@ public class PupilColorBlindCorrection : MonoBehaviour {
 				_renderer.material.SetColor("_Tint", _blue * texColor.b);
 			} 
 			
-			if (texColor.g + texColor.r >= 0.25) {
-				_renderer.material.SetColor("_Tint", _yellow * (texColor.g + texColor.r));
-			}					
+			// if (texColor.g + texColor.r >= 0.25) {
+			// 	_renderer.material.SetColor("_Tint", _yellow * (texColor.g + texColor.r));
+			// }					
 		}
 	}
 
