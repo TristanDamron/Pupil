@@ -36,7 +36,6 @@ namespace Pupil {
                 _data.minIPD = 0f;
                 _data.maxIPD = 0f;
                 _data.maxDistance = 30f;
-                _data.minDistance = 0f;
                 _data.colorBlind = false;
                 _data.red = "#000000";
                 _data.blue = "#000000";
@@ -48,8 +47,7 @@ namespace Pupil {
             PupilDataHolder.right = _data.right;
             PupilDataHolder.minIPD = _data.minIPD;                       
             PupilDataHolder.maxIPD = _data.maxIPD;
-            PupilDataHolder.maxDistance = _data.maxDistance;
-            PupilDataHolder.minDistance = _data.minDistance;            
+            PupilDataHolder.maxDistance = _data.maxDistance;        
             PupilDataHolder.colorBlind = _data.colorBlind;
             PupilDataHolder.red = _data.red;
             PupilDataHolder.blue = _data.blue;
@@ -64,7 +62,6 @@ namespace Pupil {
             _data.right = PupilDataHolder.right;
             _data.minIPD = PupilDataHolder.minIPD;
             _data.maxIPD = PupilDataHolder.maxIPD;
-            _data.minDistance = PupilDataHolder.minDistance;
             _data.maxDistance = PupilDataHolder.maxDistance;
             _data.colorBlind = PupilDataHolder.colorBlind;
             _data.red = PupilDataHolder.red;

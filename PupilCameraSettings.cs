@@ -13,8 +13,6 @@ namespace Pupil {
 		[SerializeField]
 		private float _minDistanceIPD;
 		[SerializeField]
-		private float _minDistance;
-		[SerializeField]
 		private float _maxDistanceIPD;
 		[SerializeField]
 		private float _maxDistance;
@@ -46,7 +44,6 @@ namespace Pupil {
 		public void SetCamera() {
 			_left = PupilDataHolder.left;
 			_right = PupilDataHolder.right;
-			_minDistance = PupilDataHolder.minDistance;
 			_maxDistance = PupilDataHolder.maxDistance;		
 			_maxDistanceIPD = PupilDataHolder.maxIPD;
 			_minDistanceIPD = PupilDataHolder.minIPD;			
@@ -56,30 +53,19 @@ namespace Pupil {
 			_yellow = PupilDataHolder.yellow;
 
 			_camera = new PupilCamera();		 	
-
-			_camera.SetMinDistanceIPD(_minDistance, _minDistanceIPD);
+			
 			_camera.SetMaxDistanceIPD(_maxDistance, _maxDistanceIPD);
 			_cameraSet = true;
 		}
 
 		public void SetMinDistanceIPD(float ipd) {
 			PupilDataHolder.minIPD = ipd;			
-			_camera.SetMinDistanceIPD(PupilDataHolder.minDistance, PupilDataHolder.minIPD);			
+			_camera.SetMinDistanceIPD(PupilDataHolder.minIPD);			
 		}
 
 		public void SetMaxDistanceIPD(float ipd) {
 			PupilDataHolder.maxIPD = ipd;
 			_camera.SetMaxDistanceIPD(PupilDataHolder.maxDistance, PupilDataHolder.maxIPD);						
-		}
-
-		public void SetMinDistance() {
-			PupilDataHolder.minDistance = _camera.GetDistanceToGameObject(_camera.FindNearest());			
-			_camera.SetMinDistanceIPD(PupilDataHolder.minDistance, PupilDataHolder.minIPD);
-		}
-
-		public void SetMinDistance(int ignoreLayer) {
-			PupilDataHolder.minDistance = _camera.GetDistanceToGameObject(_camera.FindNearest(ignoreLayer));			
-			_camera.SetMinDistanceIPD(PupilDataHolder.minDistance, PupilDataHolder.minIPD);			
 		}
 
 		public void SetMaxDistance() {

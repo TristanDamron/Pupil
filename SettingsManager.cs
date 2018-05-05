@@ -33,7 +33,6 @@ public class SettingsManager : MonoBehaviour {
 
 	void Update() {
 		if (_minTest) {
-			_settings.SetMinDistance(LayerMask.GetMask("UI"));
 			_settings.SetMinDistanceIPD(_ipdSlider.value);
 		} else {
 			_settings.SetMaxDistance(LayerMask.GetMask("UI"));

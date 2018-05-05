@@ -8,7 +8,6 @@ namespace Pupil {
 	public class PupilCamera {
 		private float _ipd;
 		private Transform _camera;
-		private float _minDistance;
 		private float _maxDistance;
 		private float _minDistanceIPD;
 		private float _maxDistanceIPD;	
@@ -62,8 +61,7 @@ namespace Pupil {
 			return distance;
 		}
 
-		public void SetMinDistanceIPD(float distance, float ipd) {
-			_minDistance = distance;
+		public void SetMinDistanceIPD(float ipd) {
 			_minDistanceIPD = ipd;
 		}
 
@@ -139,7 +137,7 @@ namespace Pupil {
 		}
 
 		public void AutoAdjustIPD() {
-			if (!_autoAdjustWarnings && (_maxDistance == 0f || _minDistance == 0f)) {
+			if (!_autoAdjustWarnings && _maxDistance == 0f) {
 				Debug.LogWarning("One or more distance variables are 0. Are you sure you want to do this?");
 				_autoAdjustWarnings = true;
 			}
@@ -150,7 +148,6 @@ namespace Pupil {
 			_ipd = _maxDistanceIPD;
 			if (_nearest != _camera.gameObject) {
 				var distance = GetDistanceToGameObject(_nearest);
-				Debug.Log(distance);
 				if (distance < _maxDistance) {
 					_ipd = _minDistanceIPD;
 				}

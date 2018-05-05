@@ -8,7 +8,6 @@ namespace Pupil {
 		public static float right;
 		public static float minIPD;
 		public static float maxIPD;
-		public static float minDistance;
 		public static float maxDistance;
 		public static bool colorBlind;
 		public static string red;

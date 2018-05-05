@@ -9,7 +9,6 @@ namespace Pupil {
 		public float right;
 		public float minIPD;
 		public float maxIPD;
-		public float minDistance;
 		public float maxDistance;
 		public bool colorBlind;
 		public string red;
