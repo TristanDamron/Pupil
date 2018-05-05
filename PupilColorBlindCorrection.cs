@@ -32,7 +32,7 @@ public class PupilColorBlindCorrection : MonoBehaviour {
 	private void SwapShader() {
 		_renderer.material.shader = _colorBlindShader;
 	}
-
+	
 	private void SetTint() {
 		var color = _renderer.material.color;		
 		var tex = _renderer.material.mainTexture;
