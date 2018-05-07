@@ -170,7 +170,7 @@ namespace Pupil {
 
 			_right.localRotation = Quaternion.Slerp(_right.localRotation, rightSlerp, Time.deltaTime * 3f); 
 			_right.localPosition = Vector3.Lerp(_right.localPosition, 
-												new Vector3(_ipd + PupilDataHolder.right, _right.localPosition.y, _right.localPosition.z), 
+												new Vector3(_ipd - PupilDataHolder.right, _right.localPosition.y, _right.localPosition.z), 
 												Time.deltaTime * 3f);	
 		}
 	}
