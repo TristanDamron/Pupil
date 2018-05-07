@@ -155,22 +155,22 @@ namespace Pupil {
 
 			//Left
 			Quaternion leftSlerp = Quaternion.Euler(_left.localPosition.x, 
-													-_ipd + PupilDataHolder.left,
+													_ipd + PupilDataHolder.left,
 													_left.localPosition.z);
 
 			_left.localRotation = Quaternion.Slerp(_left.localRotation, leftSlerp, Time.deltaTime * 3f);
 			_left.localPosition = Vector3.Lerp(_left.localPosition, 
-												new Vector3(-_ipd + PupilDataHolder.left, _left.localPosition.y, _left.localPosition.z), 
+												new Vector3(_ipd + PupilDataHolder.left, _left.localPosition.y, _left.localPosition.z), 
 												Time.deltaTime * 3f);
 
 			//Right
 			Quaternion rightSlerp = Quaternion.Euler(_right.localPosition.x, 
-													_ipd + PupilDataHolder.right, 
+													-_ipd + PupilDataHolder.right, 
 													_right.localPosition.z);
 
 			_right.localRotation = Quaternion.Slerp(_right.localRotation, rightSlerp, Time.deltaTime * 3f); 
 			_right.localPosition = Vector3.Lerp(_right.localPosition, 
-												new Vector3(_ipd - PupilDataHolder.right, _right.localPosition.y, _right.localPosition.z), 
+												new Vector3(-_ipd - PupilDataHolder.right, _right.localPosition.y, _right.localPosition.z), 
 												Time.deltaTime * 3f);	
 		}
 	}

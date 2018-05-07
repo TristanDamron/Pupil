@@ -54,6 +54,7 @@ namespace Pupil {
 
 			_camera = new PupilCamera();		 	
 			
+			_camera.SetMinDistanceIPD(_minDistanceIPD);
 			_camera.SetMaxDistanceIPD(_maxDistance, _maxDistanceIPD);
 			_cameraSet = true;
 		}
