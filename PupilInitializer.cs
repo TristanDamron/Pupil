@@ -14,7 +14,6 @@ namespace Pupil {
         private Quaternion _rigRotation;        
         private string _path;        
         private PupilData _data;
-        public static PupilInitializer instance;
 
         void Awake() {
             XRSettings.LoadDeviceByName(_device);
