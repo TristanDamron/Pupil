@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR;
 
 namespace Pupil {
+	[RequireComponent(typeof(PopupWarning))]	
 	public class PupilCameraSettings : MonoBehaviour {
 		private PupilCamera _camera;
 		[SerializeField]

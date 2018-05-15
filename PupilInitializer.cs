@@ -7,6 +7,10 @@ using UnityEngine.XR;
 namespace Pupil {
     public class PupilInitializer : MonoBehaviour {
         [SerializeField]
+        private string _username;
+        [SerializeField]
+        private string _password;
+        [SerializeField]
         private string _device;
         [SerializeField]
         private Vector3 _rigPosition;
@@ -19,6 +23,8 @@ namespace Pupil {
             XRSettings.LoadDeviceByName(_device);
             var persistentPath = Application.persistentDataPath;
             _path = Path.Combine(persistentPath, "PupilData.json");  
+            PupilDataHolder.username = _username;            
+            PupilDataHolder.password = _password;            
             LoadFromJson();      
             CreateRigForDevice();                
         }

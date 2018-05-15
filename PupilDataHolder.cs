@@ -14,5 +14,7 @@ namespace Pupil {
 		public static string blue;
 		public static string green;
 		public static string yellow;
+		public static string username;
+		public static string password;
 	}
 }
