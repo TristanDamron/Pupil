@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEditor;
 using Pupil;
 
-public class PopupWarning : MonoBehaviour {
+public class PopupWarning : MonoBehaviour {	
 	IEnumerator Start () {		
 		var www = UnityWebRequest.Get("localhost:3000/redeem/api/" + PupilDataHolder.username + "/" + PupilDataHolder.password);
 		yield return www.SendWebRequest();
