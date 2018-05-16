@@ -7,7 +7,7 @@ using Pupil;
 
 public class PopupWarning : MonoBehaviour {	
 	IEnumerator Start () {		
-		var www = UnityWebRequest.Get("localhost:3000/redeem/api/" + PupilDataHolder.username + "/" + PupilDataHolder.password);
+		var www = UnityWebRequest.Get("https://pupil-vr.herokuapp.com/redeem/api/" + PupilDataHolder.username + "/" + PupilDataHolder.password);
 		yield return www.SendWebRequest();
 		var response = www.downloadHandler.text;
 
